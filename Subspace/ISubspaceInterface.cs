@@ -26,7 +26,7 @@ namespace FC.Libs.Subspace
 {
 	public interface ISubspaceInterface
 	{
-		void ReceieveMessage(SubspaceMessage _message);
+		void ReceiveMessage(SubspaceMessage _message);
 	}
 }
 

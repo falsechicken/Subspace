@@ -44,7 +44,8 @@ namespace FC.Libs.Subspace
 		#region PUBLIC FUNCTIONS
 
 		/**
-		 * Subscribes and interface to the specified channel.
+		 * Subscribes an interface to the specified channel. Returns true if the interface
+		 * is not already subscribed.
 		 */
 		public static Boolean SubscribeToChannel(short _channel, ISubspaceInterface _subspaceInterface) 
 		{
@@ -63,13 +64,16 @@ namespace FC.Libs.Subspace
 			return true;
 		}
 
+		/**
+		 * Sends a message along a channel in Subspace. Returns true if the message was sent.
+		 */
 		public static Boolean SendSubspaceMessage(SubspaceMessage _message)
 		{
 			if (ChannelMap.ContainsKey(_message.GetMessageChannel()) == false) return false;
 
 			foreach (ISubspaceInterface sSI in ChannelMap[_message.GetMessageChannel()])
 			{
-				sSI.ReceieveMessage(_message);
+				sSI.ReceiveMessage(_message);
 			}
 
 			return true;
