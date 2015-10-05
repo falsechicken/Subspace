@@ -43,11 +43,18 @@ namespace FC.Libs.Subspace
 			playerList = new List<UnturnedPlayer>();
 		}
 
+		/**
+		 * Returns the channel the message was sent on.
+		 */
 		public short GetMessageChannel()
 		{
 			return channel;
 		}
 
+		/**
+		 * Returns the message code for the message. Used by plug-ins to determine what
+		 * action to take.
+		 */
 		public int GetMessageCode()
 		{
 			return messageCode;
