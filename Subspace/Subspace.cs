@@ -54,6 +54,7 @@ namespace FC.Libs.Subspace
 			if (ChannelMap.ContainsKey(_channel))
 			{
 				ChannelMap[_channel].Add(_subspaceInterface);
+
 			}
 			else 
 			{
