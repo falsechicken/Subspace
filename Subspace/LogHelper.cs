@@ -25,7 +25,6 @@ namespace FC.Libs.Subspace
 {
 	internal class LogHelper
 	{
-		
 		#region VARS
 		
 		internal const byte
@@ -90,6 +89,5 @@ namespace FC.Libs.Subspace
 		}
 		
 		#endregion
-		
 	}
 }

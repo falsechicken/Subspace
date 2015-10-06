@@ -30,15 +30,15 @@ namespace FC.Libs.Subspace
 	{
 		private short channel;
 
-		private int messageCode;
+		private string messageTitle;
 
-		public List<UnturnedPlayer> playerList;
+		private List<UnturnedPlayer> playerList;
 
-		public SubspaceMessage (short _channel, int _messageCode)
+		public SubspaceMessage (short _channel, string _messageTitle)
 		{
 			channel = _channel;
 
-			messageCode = _messageCode;
+			messageTitle = _messageTitle;
 
 			playerList = new List<UnturnedPlayer>();
 		}
@@ -52,12 +52,20 @@ namespace FC.Libs.Subspace
 		}
 
 		/**
-		 * Returns the message code for the message. Used by plug-ins to determine what
+		 * Returns the message type. Used by plug-ins to determine what
 		 * action to take.
 		 */
-		public int GetMessageCode()
+		public string GetMessageTitle()
 		{
-			return messageCode;
+			return messageTitle;
+		}
+
+		/**
+		 * Returns the list of players for this message.
+		 */
+		public List<UnturnedPlayer> GetPlayerList()
+		{
+			return playerList;
 		}
 	}
 }
