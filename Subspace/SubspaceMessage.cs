@@ -1,5 +1,5 @@
 //
-//  SubspaceMessage.cs
+//  SubspaceMessage.cs -- Represents the message object that gets sent through Subspace.
 //
 //  Author: False_Chicken
 //  Contact: jmdevsupport@gmail.com

@@ -48,14 +48,10 @@ namespace FC.Libs.Subspace
 		{
 			switch (_messageLevel)
 			{
-				case MESSAGELEVEL_DEBUG:
-					PrintDebugMessage(_message); break;
-				case MESSAGELEVEL_INFO:
-					PrintMessage(_message); break;
-				case MESSAGELEVEL_WARNING:
-					PrintWarningMessage(_message); break;
-				case MESSAGELEVEL_ERROR:
-					PrintErrorMessage(_message); break;
+				case MESSAGELEVEL_DEBUG: PrintDebugMessage(_message); break;
+				case MESSAGELEVEL_INFO: Logger.Log(_message); break;
+				case MESSAGELEVEL_WARNING: Logger.LogWarning(_message); break;
+				case MESSAGELEVEL_ERROR: Logger.LogError(_message); break;
 			}
 		}
 		
@@ -71,21 +67,6 @@ namespace FC.Libs.Subspace
 		private void PrintDebugMessage(string _message)
 		{
 			if (debugMode) Logger.Log(_message);
-		}
-		
-		private void PrintMessage(string _message)
-		{
-			Logger.Log(_message);
-		}
-		
-		private void PrintWarningMessage(string _message)
-		{
-			Logger.LogWarning(_message);
-		}
-		
-		private void PrintErrorMessage(string _message)
-		{
-			Logger.LogError(_message);
 		}
 		
 		#endregion
