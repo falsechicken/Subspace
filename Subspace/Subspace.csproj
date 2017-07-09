@@ -3,12 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DBC204F2-FA6C-4B2D-817E-1A8FBB1C4DE8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>FC.Libs.Subspace</RootNamespace>
     <AssemblyName>Subspace</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,23 +36,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Assembly-CSharp">
-      <HintPath>Libs\Assembly-CSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Rocket.API">
-      <HintPath>Libs\Rocket.API.dll</HintPath>
+      <HintPath>..\..\Rocket Libs\Rocket.API.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Core">
-      <HintPath>Libs\Rocket.Core.dll</HintPath>
+      <HintPath>..\..\Rocket Libs\Rocket.Core.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Unturned">
-      <HintPath>Libs\Rocket.Unturned.dll</HintPath>
+      <HintPath>..\..\Rocket Libs\Rocket.Unturned.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\Propriatary Libs\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\Propriatary Libs\UnityEngine.dll</HintPath>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\Propriatary Libs\Assembly-CSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +55,7 @@
     <Compile Include="Subspace.cs" />
     <Compile Include="ISubspaceInterface.cs" />
     <Compile Include="SubspaceMessage.cs" />
+    <Compile Include="ChannelDB.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

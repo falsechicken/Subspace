@@ -1,5 +1,4 @@
-//
-//  SubspaceMessage.cs -- Represents the message object that gets sent through Subspace.
+//  SubspaceMessage.cs : Represents a message to send through Subspace.
 //
 //  Author: False_Chicken
 //  Contact: jmdevsupport@gmail.com
@@ -20,53 +19,76 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
+
 using System;
 using System.Collections.Generic;
 using Rocket.Unturned.Player;
 
 namespace FC.Libs.Subspace
 {
-	public class SubspaceMessage
-	{
-		private short channel;
+	/**
+	 * Represents a message sent through Subspace.
+	 */
+	public class SubspaceMessage {
 
-		private string messageTitle;
+		private string channel { get; }
+
+		private string messageCode { get; }
+
+		private string action { get; }
+
+		private string argument { get; }
 
 		private List<UnturnedPlayer> playerList;
 
-		public SubspaceMessage (short _channel, string _messageTitle)
-		{
+		public SubspaceMessage (string _channel, string _messageCode, string _action, string _argument, List<UnturnedPlayer> _playerList ) {
+
 			channel = _channel;
 
-			messageTitle = _messageTitle;
+			messageCode = _messageCode;
 
-			playerList = new List<UnturnedPlayer>();
+			action = _action;
+
+			argument = _argument;
+
+			playerList = _playerList;
 		}
 
 		/**
 		 * Returns the channel the message was sent on.
 		 */
-		public short GetMessageChannel()
-		{
+		public string GetMessageChannel() {
 			return channel;
 		}
 
 		/**
-		 * Returns the message type. Used by plug-ins to determine what
-		 * action to take.
+		 * Returns the message code for the message. Used by plug-ins to determine what
+		 * type of message this is.
 		 */
-		public string GetMessageTitle()
-		{
-			return messageTitle;
+		public string GetMessageCode() {
+			return messageCode;
 		}
 
 		/**
-		 * Returns the list of players for this message.
+		 * Returns the action sent with the message. A command to tell the receiver what to do.
 		 */
-		public List<UnturnedPlayer> GetPlayerList()
-		{
+		public string GetAction() {
+			return action;
+		}
+
+		/**
+		 * Returns the extra arguments for the message. Extra bits for developers to use.
+		 */
+		public string GetArgument() {
+			return argument;
+		}
+
+		/**
+		 * Returns the list of players sent with the message. Could be used to preform a batch operation 
+		 * on multiple players.
+		 */
+		public List<UnturnedPlayer> GetPlayerList() {
 			return playerList;
 		}
 	}
 }
-

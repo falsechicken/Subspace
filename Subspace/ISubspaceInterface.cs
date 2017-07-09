@@ -24,9 +24,16 @@ using System;
 
 namespace FC.Libs.Subspace
 {
-	public interface ISubspaceInterface
-	{
-		void ReceiveMessage(SubspaceMessage _message);
+	/**
+	 * Plugins must implement this interface to use Subspace.
+	 */
+	public interface ISubspaceInterface {
+
+		/**
+		 * Called when a message is sent along a Subspace channel a plugin has subscribed to. Return
+		 * true to prevent the message from propagating further.
+		 */
+		Boolean ReceiveMessage(SubspaceMessage _message);
 	}
 }
 

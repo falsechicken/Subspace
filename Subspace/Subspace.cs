@@ -1,5 +1,5 @@
 //
-//  Subspace.cs
+//  Subspace.cs : An event driven library for RocketMod providing plugin communication.
 //
 //  Author: False_Chicken
 //  Contact: jmdevsupport@gmail.com
@@ -20,26 +20,17 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
+
 using System;
 using System.Collections.Generic;
 using Rocket.Core.Plugins;
 
-
 namespace FC.Libs.Subspace
 {
-	public static class Subspace
-	{
-		#region STORAGE VARIABLES
-
-		private static Dictionary<short, List<ISubspaceInterface>> ChannelMap = new Dictionary<short, List<ISubspaceInterface>>(); //Dictionary to keep track of the channels and a list of interfaces subscribed to them.
-
-		#endregion
-
-		#region UTILITY VARIABLES
-
-		private static LogHelper logHelper = new LogHelper();
-
-		#endregion
+	/**
+	 * An event driven library for RocketMod providing plugin communication. This is the main API class.
+	 */
+	public static class Subspace {
 
 		#region PUBLIC FUNCTIONS
 
@@ -47,52 +38,53 @@ namespace FC.Libs.Subspace
 		 * Subscribes an interface to the specified channel. Returns true if the interface
 		 * is not already subscribed.
 		 */
-		public static Boolean SubscribeToChannel(short _channel, ISubspaceInterface _subspaceInterface) 
-		{
-			if (IsInterfaceSubscribedToChannel(_channel, _subspaceInterface)) return false;
+		public static Boolean SubscribeToChannel(string _channelName, ISubspaceInterface _subspaceInterface) {
+			if (ChannelDB.DoesChannelExist (_channelName)) {
+				if (ChannelDB.IsSubscribedToChannel (_channelName, _subspaceInterface))
+					return false;
+				else {
+					ChannelDB.GetInterfaceList (_channelName).Add (_subspaceInterface);
+					return true;
+				}
 
-			if (ChannelMap.ContainsKey(_channel))
-			{
-				ChannelMap[_channel].Add(_subspaceInterface);
-
+			} else {
+				ChannelDB.CreateChannel (_channelName);
+				ChannelDB.GetInterfaceList (_channelName).Add (_subspaceInterface);
+				return true;
 			}
-			else 
-			{
-				ChannelMap.Add(_channel, new List<ISubspaceInterface>());
-				ChannelMap[_channel].Add(_subspaceInterface);
-			}
+		}
 
-			return true;
+		/**
+		 * Un-Subscribes an interface from the specified channel. Returns true if the interface
+		 * was un-subscribed. Returns false if the channel doesnt exist or the interface was
+		 * not subscribed in the first place.
+		 */
+		public static Boolean UnSubscribeFromChannel(string _channelName, ISubspaceInterface _subspaceInterface) {
+			if (ChannelDB.DoesChannelExist (_channelName) && ChannelDB.IsSubscribedToChannel (_channelName, _subspaceInterface)) {
+				ChannelDB.GetInterfaceList (_channelName).Remove (_subspaceInterface);
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
 		 * Sends a message along a channel in Subspace. Returns true if the message was sent.
 		 */
-		public static Boolean SendSubspaceMessage(SubspaceMessage _message)
-		{
-			if (ChannelMap.ContainsKey(_message.GetMessageChannel()) == false) return false;
-
-			foreach (ISubspaceInterface sSI in ChannelMap[_message.GetMessageChannel()])
-			{
-				sSI.ReceiveMessage(_message);
+		public static Boolean SendSubspaceMessage(SubspaceMessage _message) {
+			if (ChannelDB.DoesChannelExist (_message.GetMessageChannel())) {
+				foreach (var i in ChannelDB.GetInterfaceList(_message.GetMessageChannel())) {
+					if (i.ReceiveMessage (_message))
+						return true;
+				}
+				return true;
+			} else {
+				return false;
 			}
-
-			return true;
 		}
 		
 		#endregion
-
-		#region PRIVATE FUNCTIONS
-
-		private static Boolean IsInterfaceSubscribedToChannel(short _channel, ISubspaceInterface _subspaceInterface)
-		{
-			if (ChannelMap.ContainsKey(_channel) == false) return false; //If the channel key does not exist then no interfaces have subscribed.
-
-			if (ChannelMap[_channel].Contains(_subspaceInterface) == false) return false; //If the channel has been created but the interface has not subscribed yet.
-			else return true; //The interface is subscribed.
-		}
-
-		#endregion
+	
 	}
 }
 
